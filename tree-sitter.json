@@ -1,0 +1,24 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "boolean_algebra",
+      "camelcase": "BooleanAlgebra",
+      "scope": "source.boolean_algebra",
+      "file-types": ["bool"]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "name": "boolean_algebra",
+    "description": "Boolean algebra parser for Tree-sitter",
+    "authors": [
+      {
+        "name": "kaede106"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/kaede106/Boolean-evaluator"
+    }
+  }
+}
