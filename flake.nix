@@ -32,6 +32,7 @@
             clippy
             tree-sitter
             nodejs 
+            gcc
           ];
 
         };

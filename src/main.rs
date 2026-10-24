@@ -11,6 +11,12 @@ pub fn language() -> tree_sitter::Language {
     unsafe { tree_sitter_boolean_algebra() }
 }
 
+/// Recursively evaluates a given source by going down each node until primitive ones occur
+///
+/// # Examples
+/// evaluate(node.root_node, source, env) begins first recursion by starting at root node and
+/// going down further on
+/// ```
 fn evaluate(node: Node, source: &[u8], env: &HashMap<String, bool>) -> bool {
     match node.kind() {
         "source_file" | "expression" => {
@@ -50,7 +56,7 @@ fn evaluate(node: Node, source: &[u8], env: &HashMap<String, bool>) -> bool {
 }
 
 fn main() {
-    // User Input
+    // Get user variable Input
     println!("Enter variables separated by spaces (e.g., P Q R):");
     io::stdout().flush().unwrap();
 
@@ -58,13 +64,12 @@ fn main() {
     io::stdin().read_line(&mut var_line).unwrap();
     let variables: Vec<String> = var_line.split_whitespace().map(|s| s.to_string()).collect();
 
-    // 2. Accept bit inputs corresponding to the variables
+    // Get user bit value input
     println!(
         "Enter truth values (0 or 1) for {:?} separated by spaces (e.g., 1 0 1):",
         variables
     );
     io::stdout().flush().unwrap();
-
     let mut input_line = String::new();
     io::stdin().read_line(&mut input_line).unwrap();
 
@@ -91,15 +96,15 @@ fn main() {
         .map(|(v, &val)| (v.clone(), val))
         .collect();
 
-    // 3. Accept the sentence/statement to be evaluated
+    // Get user sentence to evaluate
     println!("Enter the Boolean statement to evaluate (e.g., P \\land (Q \\lor R)):");
     io::stdout().flush().unwrap();
 
     let mut statement_line = String::new();
     io::stdin().read_line(&mut statement_line).unwrap();
-    let source_code = statement_line.trim(); // Trim trailing newlines
+    let source_code = statement_line.trim();
 
-    // 4. Set up Tree-sitter parser
+    // Create parser
     let mut parser: Parser = Parser::new();
     parser
         .set_language(&language())
@@ -108,7 +113,7 @@ fn main() {
     let source_bytes = source_code.as_bytes();
     let tree = parser.parse(source_bytes, None).unwrap();
 
-    // 5. Recursively evaluate and print the result (1 or 0)
+    // Recursively evaluate user input
     let result = evaluate(tree.root_node(), source_bytes, &env);
     println!("Result: {}", if result { 1 } else { 0 });
 }
