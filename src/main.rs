@@ -24,6 +24,7 @@ fn evaluation() {
         // Exit check 1
         let trimmed = var_line.trim();
         if trimmed.eq_ignore_ascii_case("q!") {
+            println!("\nGoing back to main loop\n");
             break;
         }
 
@@ -41,6 +42,7 @@ fn evaluation() {
         // Exit check 2
         let trimmed = input_line.trim();
         if trimmed.eq_ignore_ascii_case("q!") {
+            println!("\nGoing back to main loop\n");
             break;
         }
         let values: Vec<bool> = input_line
@@ -77,6 +79,7 @@ fn evaluation() {
         // Exit check 3
         let trimmed = statement_line.trim();
         if trimmed.eq_ignore_ascii_case("q!") {
+            println!("\nGoing back to main loop\n");
             break;
         }
 
@@ -118,7 +121,10 @@ fn main() {
                 'E' => evaluation(),
                 'O' => optimize(),
                 'F' => optimize_and_evaluate(),
-                'Q' | 'q' => break,
+                'Q' | 'q' => {
+                    println!("END PROGRAM");
+                    break;
+                }
                 _ => println!("Improper input add input from list!"),
             },
             None => println!("Error no char inputted"),
