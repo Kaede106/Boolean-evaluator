@@ -20,6 +20,8 @@ fn evaluation() {
         io::stdout().flush().unwrap();
         let mut var_line = String::new();
         io::stdin().read_line(&mut var_line).unwrap();
+
+        // Exit check 1
         let trimmed = var_line.trim();
         if trimmed.eq_ignore_ascii_case("q!") {
             break;
@@ -36,6 +38,7 @@ fn evaluation() {
         let mut input_line = String::new();
         io::stdin().read_line(&mut input_line).unwrap();
 
+        // Exit check 2
         let trimmed = input_line.trim();
         if trimmed.eq_ignore_ascii_case("q!") {
             break;
@@ -71,13 +74,9 @@ fn evaluation() {
         io::stdin().read_line(&mut statement_line).unwrap();
         let source_code = statement_line.trim();
 
-        let check: Vec<String> = statement_line
-            .split_whitespace()
-            .map(|s| s.to_string())
-            .collect();
-
-        // Now check if they typed "Q !" safely using the vector:
-        if check.len() == 2 && check[0].to_uppercase() == "Q" && check[1] == "!" {
+        // Exit check 3
+        let trimmed = statement_line.trim();
+        if trimmed.eq_ignore_ascii_case("q!") {
             break;
         }
 
